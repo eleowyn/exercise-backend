@@ -16,7 +16,7 @@ app.get('/about', (req, res) => res.status(200).json({
 }))
 
 app.get('/users', (req, res) => res.status(200).json({users}))
-app.get('', (req,res) => res.status(200).res.send('Not Founds'))
+// app.get('', (req,res) => res.status(200).res.send('Not Founds'))
 
 const hostname = "127.0.0.1"
 const port = 3000

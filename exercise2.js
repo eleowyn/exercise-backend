@@ -1,5 +1,5 @@
 const http = require('http')
-const users = require('../users')
+const users = require('./users')
 const moment = require('moment')
 
 const server = http.createServer((req, res) => {
