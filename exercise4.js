@@ -1,10 +1,10 @@
 const http = require('http');
 const moment = require('moment');
-const users = require('./users');
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
 const errorhandler = require('errorhandler');
+const {user} = require('./users');
+const app = express();
 
 const log = (req, res, next) => {
     console.log(moment().format('MMMM Do YYYY, h:mm:ss a') + " " + req.originalUrl + " " + req.ip);
@@ -16,19 +16,19 @@ app.use(log);
 app.use(errorhandler());
 
 app.get('/users', (req, res) => {
-    res.status(200).json({users});
+    res.status(200).json({ user });
 });
 
 app.get('/users/:name', (req, res) => {
     const name = req.params.name.toLowerCase();
-    const user = users.user.find(u => u.name.toLowerCase() === name);
-
-    if (user) {
-        res.status(200).json(user);
+    const users = user.find(user => user.name.toLowerCase() === name);
+    
+    if (users) {
+        res.status(200).json(users);
     } else {
         res.status(404).json({
             status: "error",
-            message: `Data user tidak ditemukan`,
+            message: "Data user tidak ditemukan",
         });
     }
 });
