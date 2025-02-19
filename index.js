@@ -2,8 +2,20 @@ const http = require('http')
 const {hello, greetings} = require('./helloWorld')
 const moment = require('moment')
 const express = require('express')
+const morgan = require('morgan')
+const errorhandler = require('errorhandler')
 const app = express()
 
+// middleware
+const log = (req, res, next) => {
+    console.log(moment().format('MMMM Do YYYY, h:mm:ss a') + " " + req.originalUrl + " " + req.ip);
+    next();
+};
+
+app.use(morgan("tiny"));
+app.use(errorhandler);
+
+//routing
 app.get('/', (req,res) => res.send('Hello World'))
 app.get('/about', (req, res) => res.status(200).json({
     status: 'success',
@@ -26,6 +38,12 @@ app.get('/post', (req, res) => {
     res.send(`Query yang didapatkan adalah, page: ${page}, sort: ${sort}`)
 })
 
+app.use((req, res, next) => {
+    res.status(404).json ({
+        status: "error",
+        message: "resources tidak ditemukan",
+    });
+})
 const hostname = "127.0.0.1"
 const port = 3000
 app.listen(port, hostname, () => console.log(`Server running at http://${hostname}:${port}`))
