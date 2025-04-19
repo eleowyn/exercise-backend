@@ -34,13 +34,13 @@ routers.get("/users/orders", async (req, res) => {
   
       res.json({
         status: "success",
-        message: "users beserta orders",
+        message: "users with their orders",
         data: usersWithOrders
       });
     } catch (error) {
       res.status(500).json({
         status: "error",
-        message: "Gagal mengambil data user dengan orders"
+        message: "failed to get users orders"
       });
     }
   });
@@ -90,13 +90,13 @@ routers.post("/users", async (req, res) => {
   
       res.status(201).json({
         status: "success",
-        message: "User berhasil ditambahkan",
+        message: "adding users success",
         data: result.insertedId
       });
     } catch (error) {
       res.status(500).json({
         status: "error",
-        message: "Gagal menambahkan user"
+        message: "failed to add users"
       });
     }
   });
@@ -112,13 +112,13 @@ routers.put("/users/:id", async (req, res) => {
   
       res.json({
         status: "success",
-        message: "User berhasil diupdate",
+        message: "update user success",
         data: result.modifiedCount
       });
     } catch (error) {
       res.status(500).json({
         status: "error",
-        message: "Gagal update user"
+        message: "failed update user"
       });
     }
   });
@@ -133,13 +133,13 @@ routers.delete("/users/:id", async (req, res) => {
   
       res.json({
         status: "success",
-        message: "User berhasil dihapus",
+        message: "delete user success",
         data: result.deletedCount
       });
     } catch (error) {
       res.status(500).json({
         status: "error",
-        message: "Gagal hapus user"
+        message: "failed delete user"
       });
     }
   });
@@ -149,7 +149,7 @@ routers.post("/upload", upload.single("file"), (req, res) => {
   const file = req.file;
   if (file) {
     const target = path.join(__dirname, "public", file.originalname);
-    fs.renameSync(file.path, target); //rename file agar sama dengan original file name
+    fs.renameSync(file.path, target);
     res.send("file berhasil diupload");
   } else {
     res.send("file gagal diupload");
