@@ -3,9 +3,9 @@ const moment = require('moment');
 const express = require('express');
 const morgan = require('morgan');
 const errorhandler = require('errorhandler');
-const {user} = require('./users');
-const app = express();
 
+const app = express();
+const {user} = require('./users');
 const log = (req, res, next) => {
     console.log(moment().format('MMMM Do YYYY, h:mm:ss a') + " " + req.originalUrl + " " + req.ip);
     next();
